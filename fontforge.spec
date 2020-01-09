@@ -5,7 +5,7 @@
 
 Name:           fontforge
 Version:        20090622
-Release:        2.1%{?dist}
+Release:        3.1%{?dist}
 Summary:        Outline and bitmap font editor
 
 Group:          Applications/Publishing
@@ -16,6 +16,7 @@ Source1:        fontforge.desktop
 Source2:        http://downloads.sourceforge.net/fontforge/fontforge_htdocs-%{docs_version}.tar.bz2
 Source3:        fontforge.xml
 Patch1:         fontforge-20090224-pythondl.patch
+Patch2:		fontforge-20090224-multilib.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       xdg-utils
@@ -57,6 +58,7 @@ to compile applications against fontforge.
 %setup -q -n %{name}-%{version}
 
 %patch1 -p1
+%patch2 -p0
 
 mkdir htdocs
 tar xjf %{SOURCE2} -C htdocs
@@ -72,6 +74,7 @@ rm -rf htdocs/flags/CVS
 
 %build
 export INSTALL='/usr/bin/install -p'
+export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 
 %configure --with-freetype-bytecode=no --with-regular-link --enable-pyextension
 
@@ -147,6 +150,12 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Feb 27 2012 Parag <pnemade AT redhat.com> - 20090622-3.1
+- Build fontforge with cflags -fno-strict-aliasing
+
+* Sat Jan 28 2012 Parag <pnemade AT redhat.com> - 20090622-3
+- Resolves:rh#676607-File conflicts between fontforge-devel multilib packages in Optional repo 
+
 * Mon Nov 30 2009 Dennis Gregorovic <dgregor@redhat.com> - 20090622-2.1
 - Rebuilt for RHEL 6
 

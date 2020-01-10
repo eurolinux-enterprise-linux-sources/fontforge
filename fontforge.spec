@@ -5,7 +5,7 @@
 
 Name:           fontforge
 Version:        20120731b
-Release:        10%{?dist}
+Release:        12%{?dist}
 Summary:        Outline and bitmap font editor
 
 Group:          Applications/Publishing
@@ -157,6 +157,12 @@ fi
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 20120731b-12
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 20120731b-11
+- Mass rebuild 2013-12-27
+
 * Mon Sep 02 2013 Parag Nemade <pnemade AT redhat DOT com> - 20120731b-10
 - Revert previously added -Wstrict-aliasing cflags
 - We actaully need -fno-strict-aliasing (rh#903288)
